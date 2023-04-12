@@ -1,0 +1,42 @@
+{
+  "id": "5",
+  "name": "Clasa a V - a",
+  "chapters": [
+    {
+      "id": "C1",
+      "name": "Numere naturale",
+      "lessons": [
+        {
+          "id": "L1",
+          "name": "Scrierea și citirea numerelor naturale",
+          "exercises": []
+        },
+        {
+          "id": "L2",
+          "name": "Compararea numerelor naturale. Aproximari. Estimari",
+          "exercises": []
+        },
+        {
+          "id": "L3",
+          "name": "Adunarea numerelor naturale, proprietăți",
+          "exercises": []
+        },
+        {
+          "id": "L4",
+          "name": "Scăderea numerelor naturale",
+          "exercises": []
+        },
+        {
+          "id": "L5",
+          "name": "Înmulțirea numerelor naturale, proprietăți",
+          "exercises": []
+        },
+        {
+          "id": "L6",
+          "name": "Factor comun",
+          "exercises": []
+        }
+      ]
+    }
+  ]
+}
