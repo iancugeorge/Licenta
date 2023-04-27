@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import classService from '../Features/class/classService'
+import { addExercise, resetSeries } from '../Features/serie/serieSlice'
 
 const Exercitiu = () => {
   const { user } = useSelector((state) => state.auth)
@@ -13,7 +14,7 @@ const Exercitiu = () => {
   const [enunt, setEnunt] = useState(null)
   const [raspuns, setRaspuns] = useState(null)
   const [myFunction, setMyFunction] = useState(null)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     async function getClassData() {
@@ -45,7 +46,7 @@ const Exercitiu = () => {
 
   //console.log(id, idCapitol, idLectie)
 
-  useEffect(() => {
+  function getEx() {
     async function loadFunction() {
       try {
         const module = await import(
@@ -61,7 +62,37 @@ const Exercitiu = () => {
       }
     }
     loadFunction()
+  }
+
+  useEffect(() => {
+    getEx()
   }, [id])
+
+  const dispatch = useDispatch()
+  const serie = useSelector((state) => state.serie)
+
+  const handleSubmit = (event) => {
+    event.preventDefault() // prevent default form submission behavior
+    const inputValue = event.target.elements.raspuns.value
+    if (inputValue == raspuns) {
+      console.log('Correct!')
+      getEx()
+      dispatch(
+        addExercise({
+          id: id,
+          isCorrect: true,
+        })
+      )
+    } else {
+      console.log('Incorrect!')
+      dispatch(
+        addExercise({
+          id: id,
+          isCorrect: false,
+        })
+      )
+    }
+  }
 
   if (!raspuns) {
     return null // or return a loading indicator
@@ -77,9 +108,18 @@ const Exercitiu = () => {
           {filteredExercise && (
             <section className='enunt'>
               <h2>ENUNT</h2>
-              <Enunt enunt={enunt} />
+              {/* <Enunt enunt={enunt} /> */}
+              <p>{enunt}</p>
               <p>RASPUNS:</p>
-              <SpatiuDeLucru raspuns={raspuns} />
+              {/* <SpatiuDeLucru raspuns={raspuns} /> */}
+              <form onSubmit={handleSubmit}>
+                <label htmlFor='raspuns'>Raspuns: </label>
+                <input type='text' id='raspuns' name='raspuns' />
+                <button type='submit'>Verifica</button>
+                {/* {serie.isResolved && (
+        <button onClick={() => dispatch(resetSeries())}>Reset series</button>
+      )} */}
+              </form>
             </section>
           )}
         </>
